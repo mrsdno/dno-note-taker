@@ -49,7 +49,6 @@ const saveNote = (note) =>
     })
     .then(postResponse => {
       console.log(postResponse);
-      alert('Thank you for adding a note!');
   });
 
 const deleteNote = (id) =>
@@ -62,7 +61,6 @@ const deleteNote = (id) =>
 
 const renderActiveNote = () => {
   hide(saveNoteBtn);
-
   if (activeNote.id) {
     noteTitle.setAttribute('readonly', true);
     noteText.setAttribute('readonly', true);
@@ -110,6 +108,7 @@ const handleNoteDelete = (e) => {
 const handleNoteView = (e) => {
   e.preventDefault();
   activeNote = JSON.parse(e.target.parentElement.getAttribute('data-note'));
+  console.log(activeNote);
   renderActiveNote();
 };
 
