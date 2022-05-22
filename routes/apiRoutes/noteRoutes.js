@@ -3,7 +3,31 @@ const router = require('express').Router();
 const fs = require("fs");
 const path = require('path');
 const { notes } = require('../../db/db.json');
+const { networkInterfaces } = require('os');
+const { notDeepEqual } = require('assert');
 
+function deleteNote(id) {
+    
+    fs.readFile('./db/db.json', 'utf8', (err, data) => {
+        if (err) throw err;
+        else {
+            let parsedNotes = JSON.parse(data).notes;
+            var filteredNotes = parsedNotes.filter(function (value, index, arr) {
+                return value.id != id;
+            })
+            console.log(filteredNotes);
+
+            
+            fs.writeFileSync('./db/db.json', JSON.stringify({ notes: filteredNotes }, null, 4),
+                (writeErr) =>
+                    writeErr
+                        ? console.error(writeErr)
+                        : console.info('Successfully deleted note!')
+            )
+            return filteredNotes;
+        }
+    })
+}
 
 function createNewNote(body, notesArray) {
     const note = body;
@@ -20,9 +44,13 @@ function createNewNote(body, notesArray) {
 // read db.json file and return all saved notes
 router.get('/notes', (req, res) => {
     let results = notes;
-    console.log(results);
-
     res.json(results);
+})
+
+router.delete('/notes/:id', (req, res, next) => {
+    const id = req.params.id;
+    deleteNote(id);
+    
 })
 
 router.post('/notes', (req, res) => {

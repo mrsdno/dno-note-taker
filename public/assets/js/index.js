@@ -48,8 +48,8 @@ const saveNote = (note) =>
       alert('Error: ' + response.statusText)
     })
     .then(postResponse => {
-      console.log(postResponse);
-  });
+        console.log(postResponse);
+    });
 
 const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {
@@ -58,6 +58,7 @@ const deleteNote = (id) =>
       'Content-Type': 'application/json',
     },
   });
+
 
 const renderActiveNote = () => {
   hide(saveNoteBtn);
@@ -75,7 +76,6 @@ const renderActiveNote = () => {
 };
 
 const handleNoteSave = () => {
-  console.log("you clicked save!");
   const newNote = {
     title: noteTitle.value,
     text: noteText.value,
@@ -90,7 +90,6 @@ const handleNoteSave = () => {
 const handleNoteDelete = (e) => {
   // Prevents the click listener for the list from being called when the button inside of it is clicked
   e.stopPropagation();
-
   const note = e.target;
   const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).id;
 
@@ -108,7 +107,6 @@ const handleNoteDelete = (e) => {
 const handleNoteView = (e) => {
   e.preventDefault();
   activeNote = JSON.parse(e.target.parentElement.getAttribute('data-note'));
-  console.log(activeNote);
   renderActiveNote();
 };
 
