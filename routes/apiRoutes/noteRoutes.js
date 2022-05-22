@@ -30,7 +30,6 @@ router.post('/notes', (req, res) => {
     req.body.id = uniqid();
     const note = createNewNote(req.body, notes);
     res.json(note);
-    console.log(notes);
 })
 
 module.exports = router;
