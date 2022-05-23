@@ -49,8 +49,8 @@ router.get('/notes', (req, res) => {
 
 router.delete('/notes/:id', (req, res, next) => {
     const id = req.params.id;
-    deleteNote(id);
-    
+    const newArray = deleteNote(id);
+    res.json(newArray);
 })
 
 router.post('/notes', (req, res) => {
